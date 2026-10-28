@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Forside
-hero_title: Undervisningsmateriale
+hero_title: ITA4 - forår 27
 hero_text: Noter, øvelser og opgaver til IT-arkitektur, Agil udvikling og Cloud – samlet ét sted.
 ---
 
