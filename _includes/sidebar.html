@@ -1,20 +1,37 @@
 {%- comment -%}
-  Bygger menuen automatisk ud fra mappestrukturen i faget.
+  Træstruktur bygget automatisk ud fra mapperne.
   Sider sorteres efter URL, så brug talpræfikser: 01-..., 02-...
 {%- endcomment -%}
-{%- assign prefix = '/' | append: include.course.id | append: '/' -%}
 {%- assign sorted = site.pages | sort: "url" -%}
-<nav class="side-nav">
-  <a class="side-title{% if page.url == prefix %} active{% endif %}" href="{{ prefix | relative_url }}">Oversigt</a>
-  <ul>
-  {%- for p in sorted -%}
-    {%- if p.url contains prefix and p.url != prefix -%}
-      {%- assign parts = p.url | split: '/' -%}
-      {%- assign level = parts | size | minus: 3 -%}
-      <li class="lvl-{{ level }}">
-        <a href="{{ p.url | relative_url }}"{% if p.url == page.url %} class="active"{% endif %}>{{ p.title | default: p.name }}</a>
-      </li>
-    {%- endif -%}
+<a class="side-logo" href="{{ '/' | relative_url }}">
+  <span class="logo-mark">◢</span>
+  <span>{{ site.title }}<small>{{ site.description }}</small></span>
+</a>
+
+<nav class="tree" aria-label="Indhold">
+  <a class="tree-home{% if page.url == '/' %} active{% endif %}" href="{{ '/' | relative_url }}">Forside</a>
+
+  {%- for c in site.courses -%}
+    {%- assign prefix = '/' | append: c.id | append: '/' -%}
+    <details class="tree-course" style="--accent: {{ c.color }}"{% if include.course == nil or include.course.id == c.id %} open{% endif %}>
+      <summary>
+        <a href="{{ prefix | relative_url }}"{% if page.url == prefix %} class="active"{% endif %}>
+          <span class="course-icon">{{ c.icon }}</span>{{ c.title }}
+        </a>
+      </summary>
+      <ul>
+      {%- for p in sorted -%}
+        {%- if p.url contains prefix and p.url != prefix -%}
+          {%- assign parts = p.url | split: '/' -%}
+          {%- assign level = parts | size | minus: 3 -%}
+          <li class="lvl-{{ level }}">
+            <a href="{{ p.url | relative_url }}"{% if p.url == page.url %} class="active"{% endif %}>{{ p.title | default: p.name }}</a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+      </ul>
+    </details>
   {%- endfor -%}
-  </ul>
 </nav>
+
+<a class="side-gh" href="https://github.com/{{ site.repository }}">GitHub-repo ↗</a>

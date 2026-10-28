@@ -1,5 +1,5 @@
-// Åbn/luk menuer på mobil
-document.querySelectorAll('.nav-toggle, .sidebar-toggle').forEach(function (btn) {
+// Åbn/luk træet på mobil
+document.querySelectorAll('.sidebar-toggle').forEach(function (btn) {
   btn.addEventListener('click', function () {
     var target = document.getElementById(btn.getAttribute('aria-controls'));
     var open = target.classList.toggle('open');
