@@ -1,0 +1,20 @@
+{%- comment -%}
+  Bygger menuen automatisk ud fra mappestrukturen i faget.
+  Sider sorteres efter URL, så brug talpræfikser: 01-..., 02-...
+{%- endcomment -%}
+{%- assign prefix = '/' | append: include.course.id | append: '/' -%}
+{%- assign sorted = site.pages | sort: "url" -%}
+<nav class="side-nav">
+  <a class="side-title{% if page.url == prefix %} active{% endif %}" href="{{ prefix | relative_url }}">Oversigt</a>
+  <ul>
+  {%- for p in sorted -%}
+    {%- if p.url contains prefix and p.url != prefix -%}
+      {%- assign parts = p.url | split: '/' -%}
+      {%- assign level = parts | size | minus: 3 -%}
+      <li class="lvl-{{ level }}">
+        <a href="{{ p.url | relative_url }}"{% if p.url == page.url %} class="active"{% endif %}>{{ p.title | default: p.name }}</a>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+  </ul>
+</nav>

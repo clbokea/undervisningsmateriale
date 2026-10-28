@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'da' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% seo %}
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+{%- assign seg = page.url | split: '/' -%}
+{%- assign course_id = seg[1] -%}
+{%- assign course = site.courses | where: "id", course_id | first -%}
+<body{% if course %} style="--accent: {{ course.color }}"{% endif %}>
+  {% include header.html course=course %}
+
+  {% if page.layout == 'home' %}
+    {{ content }}
+  {% elsif course %}
+    {% include course-banner.html course=course %}
+    <div class="container doc">
+      <button class="sidebar-toggle" aria-expanded="false" aria-controls="sidebar">☰ Indhold</button>
+      <aside id="sidebar" class="sidebar">
+        {% include sidebar.html course=course %}
+      </aside>
+      <main class="content">
+        {% include breadcrumbs.html course=course %}
+        <article class="markdown">
+          {{ content }}
+        </article>
+        {% assign depth = seg | size %}
+        {% if depth == 2 %}{% include module-grid.html course=course %}{% endif %}
+        <p class="edit-link">
+          <a href="https://github.com/{{ site.repository }}/edit/{{ site.branch }}/{{ page.path }}">✎ Rediger denne side på GitHub</a>
+        </p>
+      </main>
+    </div>
+  {% else %}
+    <div class="container narrow">
+      <article class="markdown">{{ content }}</article>
+    </div>
+  {% endif %}
+
+  {% include footer.html %}
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>

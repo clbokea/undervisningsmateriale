@@ -1,0 +1,7 @@
+<nav class="breadcrumbs" aria-label="Brødkrumme">
+  <a href="{{ '/' | relative_url }}">Forside</a>
+  <span>/</span>
+  <a href="{{ include.course.id | append: '/' | prepend: '/' | relative_url }}">{{ include.course.title }}</a>
+  {% assign prefix = '/' | append: include.course.id | append: '/' %}
+  {% if page.url != prefix %}<span>/</span> <span class="current">{{ page.title }}</span>{% endif %}
+</nav>

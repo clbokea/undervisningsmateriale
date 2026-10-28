@@ -1,0 +1,18 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <strong>{{ site.title }}</strong>
+      <p>{{ site.description }}</p>
+    </div>
+    <div>
+      <strong>Fag</strong>
+      <ul>
+        {% for c in site.courses %}<li><a href="{{ c.id | append: '/' | prepend: '/' | relative_url }}">{{ c.title }}</a></li>{% endfor %}
+      </ul>
+    </div>
+    <div>
+      <strong>Bidrag</strong>
+      <p>Alt materiale ligger som README-filer på <a href="https://github.com/{{ site.repository }}">GitHub</a>. Fundet en fejl? Lav et pull request.</p>
+    </div>
+  </div>
+</footer>

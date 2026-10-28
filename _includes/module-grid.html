@@ -1,0 +1,15 @@
+{%- comment -%} Vises på fagets forside: kort for hvert modul (første niveau) {%- endcomment -%}
+{%- assign prefix = '/' | append: include.course.id | append: '/' -%}
+{%- assign sorted = site.pages | sort: "url" -%}
+<h2 class="grid-heading">Moduler</h2>
+<div class="module-grid">
+{%- for p in sorted -%}
+  {%- assign parts = p.url | split: '/' -%}
+  {%- if p.url contains prefix and p.url != prefix and parts.size == 3 -%}
+    <a class="module" href="{{ p.url | relative_url }}">
+      <h3>{{ p.title | default: p.name }}</h3>
+      {% if p.description %}<p>{{ p.description }}</p>{% else %}<p>{{ p.content | markdownify | strip_html | truncatewords: 18 }}</p>{% endif %}
+    </a>
+  {%- endif -%}
+{%- endfor -%}
+</div>

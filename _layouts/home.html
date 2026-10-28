@@ -1,0 +1,34 @@
+---
+layout: default
+---
+<section class="hero">
+  <div class="container">
+    <h1>{{ page.hero_title | default: site.title }}</h1>
+    <p class="lead">{{ page.hero_text | default: site.description }}</p>
+    <div class="hero-buttons">
+      {% for c in site.courses %}
+        <a class="btn" style="--accent: {{ c.color }}" href="{{ c.id | append: '/' | prepend: '/' | relative_url }}">{{ c.title }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="container cards">
+  {% for c in site.courses %}
+    {%- assign prefix = '/' | append: c.id | append: '/' -%}
+    {%- assign n = 0 -%}
+    {%- for p in site.pages -%}{%- if p.url contains prefix and p.url != prefix -%}{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}
+    <a class="card" style="--accent: {{ c.color }}" href="{{ prefix | relative_url }}">
+      <div class="card-top"><span class="card-icon">{{ c.icon }}</span></div>
+      <div class="card-body">
+        <h2>{{ c.title }}</h2>
+        <p>{{ c.description }}</p>
+        <span class="card-meta">{{ n }} moduler →</span>
+      </div>
+    </a>
+  {% endfor %}
+</section>
+
+<section class="container narrow markdown home-text">
+  {{ content }}
+</section>
