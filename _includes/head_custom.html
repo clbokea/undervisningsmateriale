@@ -1,0 +1,46 @@
+<script>
+  // Lys/mørk tilstand: brugerens valg huskes, ellers følges systemets indstilling.
+  // Køres i <head>, så siden ikke blinker lyst, før det mørke tema er sat.
+  (function () {
+    var KEY = 'jtd-theme';
+    var media = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function stored() {
+      try { return localStorage.getItem(KEY); } catch (e) { return null; }
+    }
+    function apply(theme) {
+      var css = document.querySelector('link[rel="stylesheet"]');
+      css.setAttribute('href', '{{ "/assets/css/just-the-docs-" | relative_url }}' + theme + '.css');
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    window.toggleTheme = function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem(KEY, next); } catch (e) {}
+      apply(next);
+    };
+
+    apply(stored() || (media.matches ? 'dark' : 'light'));
+    media.addEventListener('change', function (e) {
+      if (!stored()) apply(e.matches ? 'dark' : 'light');
+    });
+  })();
+
+  // Oversæt de få engelske tekster, som temaets JavaScript indsætter
+  // ("load", så temaets egne kopiér-knapper er oprettet først)
+  window.addEventListener('load', function () {
+    var results = document.getElementById('search-results');
+    if (results) {
+      new MutationObserver(function () {
+        var none = results.querySelector('.search-no-result');
+        if (none && none.textContent === 'No results found') none.textContent = 'Ingen resultater';
+      }).observe(results, { childList: true, subtree: true });
+    }
+    document.querySelectorAll('button').forEach(function (btn) {
+      if (btn.ariaLabel === 'Copy code to clipboard') btn.ariaLabel = 'Kopiér kode';
+    });
+  });
+</script>
+<style>
+  .theme-toggle { margin-left: auto; font-size: 1.1rem; cursor: pointer; background: none; border: 0; }
+</style>
