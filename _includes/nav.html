@@ -1,0 +1,12 @@
+<div id="nav-bg">
+  <nav id="top-nav" aria-label="Fag">
+    <a id="logo" href="{{ '/' | relative_url }}">./{{ site.title | slugify }}</a>
+    <input type="checkbox" id="menu-icon">
+    <label class="menu-label" for="menu-icon">fag</label>
+    <span class="trigger">
+      {%- for c in site.courses -%}
+        <a class="nav-link{% if include.course.id == c.id %} active{% endif %}" href="{{ c.id | append: '/' | prepend: '/' | relative_url }}"><span>{{ c.id }}</span></a>
+      {%- endfor -%}
+    </span>
+  </nav>
+</div>

@@ -7,7 +7,7 @@ hero_text: Noter, øvelser og opgaver til IT-arkitektur, Agil udvikling og Cloud
 
 ## Sådan bruger du siden
 
-Vælg et fag ovenfor. Hvert fag er delt op i **moduler**, som du finder i menuen til venstre.
+Vælg et fag i menuen øverst eller i listen nedenfor. Hvert fag er delt op i **moduler**.
 Alt materiale ligger som almindelige `README.md`-filer i [GitHub-repoet](https://github.com/{{ site.repository }}),
 så du kan også læse det direkte der – eller klone det og have det offline.
 

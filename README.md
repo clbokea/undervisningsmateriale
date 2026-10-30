@@ -20,14 +20,14 @@ cloud/
 
 1. Opret en ny mappe i faget, fx `cloud/03-kubernetes/`
 2. Læg en `README.md` i mappen. Første `# Overskrift` bliver sidens titel.
-3. Commit og push – siden bygges automatisk og menuen opdateres af sig selv.
+3. Commit og push – siden bygges automatisk og modullisterne opdateres af sig selv.
 
 **Tips**
-- Brug talpræfikser (`01-`, `02-`, …) – menuen sorteres efter mappenavn.
-- Undermapper (fx `cloud/03-kubernetes/opgave-1/README.md`) vises indrykket i menuen.
+- Brug talpræfikser (`01-`, `02-`, …) – modullisterne sorteres efter mappenavn.
+- Undermapper (fx `cloud/03-kubernetes/opgave-1/README.md`) vises indrykket i modullisten.
 - Billeder kan ligge i samme mappe og linkes relativt: `![diagram](diagram.png)`
 - Links mellem filer skrives som på GitHub: `[næste](../02-kanban/README.md)` – de virker begge steder.
-- Valgfrit: tilføj front matter med `description:` for at styre teksten på modulkortet.
+- Valgfrit: tilføj front matter med `description:` for at styre teksten ud for modulet i listen.
 
 ## Nyt fag
 

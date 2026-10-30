@@ -1,23 +1,13 @@
 ---
 layout: default
 ---
-<header class="intro">
-  <h1>{{ page.hero_title | default: site.title }}</h1>
-  <p class="lead">{{ page.hero_text | default: site.description }}</p>
-</header>
-
-<div class="cards">
-  {% for c in site.courses %}
-    {%- assign prefix = '/' | append: c.id | append: '/' -%}
-    {%- assign n = 0 -%}
-    {%- for p in site.pages -%}{%- assign parts = p.url | split: '/' -%}{%- if p.url contains prefix and parts.size == 3 -%}{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}
-    <a class="card" style="--accent: {{ c.color }}" href="{{ prefix | relative_url }}">
-      <span class="card-icon">{{ c.icon }}</span>
-      <h2>{{ c.title }}</h2>
-      <p>{{ c.description }}</p>
-      <span class="card-meta">{{ n }} moduler →</span>
-    </a>
-  {% endfor %}
-</div>
+<h1 class="title">{{ page.hero_title | default: site.title }}</h1>
+<p class="subtitle">{{ page.hero_text | default: site.description }}</p>
 
 {{ content }}
+
+{% for c in site.courses %}
+<h2><a href="{{ c.id | append: '/' | prepend: '/' | relative_url }}">{{ c.title }}</a></h2>
+<p class="muted">{{ c.description }}</p>
+{% include module-list.html course=c %}
+{% endfor %}

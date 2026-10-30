@@ -1,3 +1,4 @@
-<footer class="site-footer">
-  {{ site.title }} · Materialet ligger på <a href="https://github.com/{{ site.repository }}">GitHub</a> – fundet en fejl? Lav et pull request.
-</footer>
+<div class="small center">
+  {% if page.layout != 'home' %}<p><a href="https://github.com/{{ site.repository }}/edit/{{ site.branch }}/{{ page.path }}">Rediger denne side på GitHub</a></p>{% endif %}
+  <p>{{ site.title }} · Materialet ligger på <a href="https://github.com/{{ site.repository }}">GitHub</a> – fundet en fejl? Lav et pull request.</p>
+</div>
