@@ -27,6 +27,9 @@ courses:
     icon: "☁"
     color: "#f59e0b"
 
+# Slå GitHub Pages' standardtema (Primer) fra – ellers overskriver dets style.css vores
+theme: null
+
 markdown: kramdown
 kramdown:
   input: GFM
