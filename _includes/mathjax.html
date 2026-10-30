@@ -1,0 +1,13 @@
+{%- comment -%}
+  Temaet indlæser altid MathJax, som så opfatter $ … $ i almindelig tekst som
+  formler. Her indlæses det kun på sider med "mathjax: true" i front matter.
+{%- endcomment -%}
+{%- if page.mathjax -%}
+<script>
+window.MathJax = {
+  tex: { inlineMath: [ ['$', '$'], ['\\(', '\\)'] ] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
+{%- endif -%}

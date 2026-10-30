@@ -1,0 +1,75 @@
+{%- comment -%}
+  Erstatter temaets menu: i stedet for collections vises fagene som kapitler
+  med deres moduler som undersider, bygget ud fra mapperne.
+{%- endcomment -%}
+<div class="book-summary">
+    <script type="text/javascript">
+        // Fra temaet: ret scroll ved klik på links i menuen
+        function pageScrollToTop(element) {
+            $('div.body-inner').animate({scrollTop: 0});
+            $(element).parent().find('li>ul>li').removeClass('active');
+            return true;
+        }
+        function mobilePageScrollToAnchor(element) {
+            $(element).closest('li.chapter').find('ul>li').removeClass('active');
+            $(element).parent().addClass('active');
+            if ($(document).width() <= 1240) {
+                let target = $($(element).attr('href'));
+                if (target.length) {
+                    $('div.body-inner').animate({ scrollTop: target.get(0).offsetTop });
+                }
+            }
+            return true;
+        }
+    </script>
+
+    <nav role="navigation">
+        <div id="book-search-input" role="search">
+            <input type="text" placeholder="Søg i materialet" />
+        </div>
+        <div id="book-search-input-link" role="search">
+            <a href="{{ site.baseurl }}/assets/search.html">Klik for at søge</a>
+        </div>
+        <ul class="summary">
+            {%- assign sorted = site.pages | sort: "url" -%}
+            <li class="chapter{% if page.url == '/' %} active{% endif %}" data-level="0" data-path="{{ site.baseurl }}/">
+                <a href="{{ site.baseurl }}/" onclick="pageScrollToTop(this)">Forside</a>
+            </li>
+
+            <li class="divider"></li>
+
+            {%- for cid in site.courses -%}
+                {%- assign prefix = '/' | append: cid | append: '/' -%}
+                {%- assign course = sorted | where: "url", prefix | first -%}
+                {%- if course -%}
+                <li class="chapter{% if page.url == prefix %} active{% endif %}{% if page.url contains prefix %} expanded{% endif %}" data-level="{{ forloop.index }}" data-path="{{ site.baseurl }}{{ prefix }}">
+                    <a href="{{ site.baseurl }}{{ prefix }}" onclick="pageScrollToTop(this)">
+                        <b>{{ forloop.index }}.</b> {{ course.title | escape }}
+                    </a>
+                    <ul class="articles">
+                    {%- assign n = 0 -%}
+                    {%- for p in sorted -%}
+                        {%- if p.url contains prefix and p.url != prefix and p.title -%}
+                        {%- assign n = n | plus: 1 -%}
+                        <li class="chapter{% if p.url == page.url %} active{% endif %}" data-level="{{ forloop.parentloop.index }}.{{ n }}" data-path="{{ site.baseurl }}{{ p.url }}">
+                            <a href="{{ site.baseurl }}{{ p.url }}" onclick="pageScrollToTop(this)">{{ p.title | escape }}</a>
+                            {%- if site.toc.enabled and p.url == page.url -%}
+                                {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
+                            {%- endif -%}
+                        </li>
+                        {%- endif -%}
+                    {%- endfor -%}
+                    </ul>
+                </li>
+                {%- endif -%}
+            {%- endfor -%}
+
+            <li class="divider"></li>
+
+            {%- if page.path and page.url != '/' -%}
+            <li><a href="https://github.com/{{ site.repository }}/edit/{{ site.branch }}/{{ page.path }}" target="_blank" rel="noopener">✎ Rediger denne side på GitHub</a></li>
+            {%- endif -%}
+            <li><a href="https://github.com/{{ site.repository }}" target="_blank" rel="noopener">GitHub-repo</a></li>
+        </ul>
+    </nav>
+</div>

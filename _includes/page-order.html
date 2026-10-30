@@ -1,0 +1,25 @@
+{%- comment -%}
+  Sidernes rækkefølge i bogen: forsiden, derefter hvert fag (fagets README.md
+  efterfulgt af dets moduler sorteret efter mappenavn).
+  Sætter "book_pages" (alle sider i rækkefølge) samt "prev_page" og "next_page"
+  for den aktuelle side.
+{%- endcomment -%}
+{%- assign sorted = site.pages | sort: "url" -%}
+{%- assign book_pages = site.pages | where: "url", "/" -%}
+{%- for cid in site.courses -%}
+  {%- assign prefix = '/' | append: cid | append: '/' -%}
+  {%- for p in sorted -%}
+    {%- if p.url == prefix -%}{%- assign book_pages = book_pages | push: p -%}{%- endif -%}
+  {%- endfor -%}
+  {%- for p in sorted -%}
+    {%- if p.url contains prefix and p.url != prefix and p.title -%}{%- assign book_pages = book_pages | push: p -%}{%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- assign prev_page = nil -%}{%- assign next_page = nil -%}
+{%- for p in book_pages -%}
+  {%- if p.url == page.url -%}
+    {%- assign i_prev = forloop.index0 | minus: 1 -%}
+    {%- if i_prev >= 0 -%}{%- assign prev_page = book_pages[i_prev] -%}{%- endif -%}
+    {%- assign next_page = book_pages[forloop.index] -%}
+  {%- endif -%}
+{%- endfor -%}

@@ -1,0 +1,16 @@
+# Kør siden lokalt: docker compose up  →  http://localhost:4000/undervisningsmateriale/
+name: ita4
+
+services:
+  jekyll:
+    image: ruby:3.3
+    working_dir: /site
+    command: sh -c "bundle install && bundle exec jekyll serve --host 0.0.0.0 --force_polling"
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/site
+      - gems:/usr/local/bundle   # gems caches mellem kørsler
+
+volumes:
+  gems:

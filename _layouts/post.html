@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+{%- comment -%}
+  Kopi af temaets post-layout, men med dansk sprog og forrige/næste-pile,
+  der følger fagenes rækkefølge (se _includes/page-order.html).
+{%- endcomment -%}
+{%- include page-order.html -%}
+<html lang="{{ site.lang | default: 'da' }}">
+    <head>
+        {%- include head.html -%}
+        {% seo title=false %}
+        {% if prev_page %}<link rel="prev" href="{{ site.baseurl }}{{ prev_page.url }}" />{% endif %}
+        {% if next_page %}<link rel="next" href="{{ site.baseurl }}{{ next_page.url }}" />{% endif %}
+    </head>
+    <body>
+        <div class="book">
+
+            {%- include toc-date.html -%}
+
+            <div class="book-body">
+                <div class="book-header" role="navigation">
+                    <h1>
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                        <a href="." >{{ page.title | default: site.title | escape }}</a>
+                    </h1>
+                </div>
+
+                <div class="body-inner">
+                    {%- include body.html -%}
+
+                    {% if prev_page %}
+                        <a href="{{ site.baseurl }}{{ prev_page.url }}" class="navigation navigation-prev" aria-label="Forrige side: {{ prev_page.title | escape }}">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    {% endif %}
+                    {% if next_page %}
+                        <a href="{{ site.baseurl }}{{ next_page.url }}" class="navigation navigation-next{% unless prev_page %} navigation-unique{% endunless %}" aria-label="Næste side: {{ next_page.title | escape }}">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({%- include metadata-post.json.tpl -%});
+            });
+            </script>
+        </div>
+
+        {%- include footer.html -%}
+
+    </body>
+</html>

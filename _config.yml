@@ -3,29 +3,36 @@ description: Materiale til IT-arkitektur, Agil udvikling og Cloud
 lang: da
 baseurl: "/undervisningsmateriale"   # navnet på GitHub-repoet
 url: "https://clbokea.github.io"
+repository: clbokea/undervisningsmateriale
+branch: main
 
-# Tema: Just the Docs – https://just-the-docs.github.io/just-the-docs/
-remote_theme: just-the-docs/just-the-docs@v0.12.0
+# Tema: jekyll-gitbook – https://sighingnow.github.io/jekyll-gitbook/
+remote_theme: sighingnow/jekyll-gitbook@a7d876936fe650c46eaf9eca92dc7afe0f1e1f17
 theme: null   # slå GitHub Pages' standardtema (Primer) fra
 
-search_enabled: true
-heading_anchors: true
-enable_copy_code_button: true
-back_to_top: true
-back_to_top_text: "Til toppen"
-nav_sort: case_insensitive
+# Fagene i menuen, i denne rækkefølge. "id" skal matche mappenavnet.
+courses:
+  - it-arkitektur
+  - agil-udvikling
+  - cloud
 
-aux_links:
-  "GitHub-repo": "https://github.com/clbokea/undervisningsmateriale"
-aux_links_new_tab: true
+# Overskrifter fra den aktuelle side, der vises under siden i menuen
+toc:
+  enabled: true
+  h_min: 2
+  h_max: 3
 
-gh_edit_link: true
-gh_edit_link_text: "Rediger denne side på GitHub"
-gh_edit_repository: "https://github.com/clbokea/undervisningsmateriale"
-gh_edit_branch: main
-gh_edit_view_mode: edit
+# Søgningen skal også omfatte almindelige sider (ikke kun collections)
+gitbook_search:
+  include:
+    pages: true
+  exclude:
+    files:
+      - index.md
+      - assets/search.html
 
-footer_content: "Materialet ligger på <a href=\"https://github.com/clbokea/undervisningsmateriale\">GitHub</a> – fundet en fejl? Lav et pull request."
+syntax_highlighter_style: github
+page_width: 800px
 
 markdown: kramdown
 kramdown:
@@ -35,7 +42,6 @@ kramdown:
 # Gør det muligt at skrive almindelige README.md-filer uden front matter
 plugins:
   - jekyll-remote-theme
-  - jekyll-include-cache
   - jekyll-optional-front-matter
   - jekyll-readme-index
   - jekyll-relative-links
@@ -46,43 +52,13 @@ readme_index:
   with_frontmatter: true
 
 titles_from_headings:
-  strip_title: false   # Just the Docs viser selv sidens # Overskrift
+  strip_title: true   # temaet viser selv sidens titel som overskrift
 
-# Menuen: hvert fag er en mappe, og fagets forside er mappens README.md.
-# Alle sider i undermapperne (modulerne) bliver børn af fagets forside.
-# "parent" skal matche fagets # Overskrift; nav_order styrer fagenes rækkefølge.
 defaults:
   - scope:
       path: ""
     values:
-      layout: default
-
-  - scope:
-      path: "it-arkitektur/README.md"
-    values:
-      nav_order: 1
-  - scope:
-      path: "it-arkitektur/*/**/*"
-    values:
-      parent: IT-arkitektur
-
-  - scope:
-      path: "agil-udvikling/README.md"
-    values:
-      nav_order: 2
-  - scope:
-      path: "agil-udvikling/*/**/*"
-    values:
-      parent: Agil udvikling
-
-  - scope:
-      path: "cloud/README.md"
-    values:
-      nav_order: 3
-  - scope:
-      path: "cloud/*/**/*"
-    values:
-      parent: Cloud
+      layout: post
 
 exclude:
   - README.md
@@ -90,3 +66,4 @@ exclude:
   - Gemfile.lock
   - vendor
   - .github
+  - compose.yaml

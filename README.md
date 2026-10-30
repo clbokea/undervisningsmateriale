@@ -23,21 +23,31 @@ cloud/
 3. Commit og push – siden bygges automatisk og menuen opdateres af sig selv.
 
 **Tips**
-- Brug talpræfikser (`01-`, `02-`, …) – menuen sorteres efter titel.
+- Brug talpræfikser (`01-`, `02-`, …) – modulerne sorteres efter mappenavn.
 - Billeder kan ligge i samme mappe og linkes relativt: `![diagram](diagram.png)`
 - Links mellem filer skrives som på GitHub: `[næste](../02-kanban/README.md)` – de virker begge steder.
-- Valgfrit: tilføj front matter med `nav_order:` for at styre rækkefølgen i menuen.
+- Matematik: tilføj `mathjax: true` i front matter, så kan du skrive formler som `$E = mc^2$`.
 
 ## Nyt fag
 
-Opret en mappe med en `README.md`, hvis første `# Overskrift` er fagets navn. Tilføj derefter to blokke under
-`defaults:` i `_config.yml` (kopiér et af de eksisterende fag): én der giver fagets forside en `nav_order`,
-og én der sætter `parent` til fagets navn for alle sider i undermapperne.
+Opret en mappe med en `README.md`, hvis første `# Overskrift` er fagets navn, og tilføj mappenavnet under
+`courses:` i `_config.yml`. Rækkefølgen dér er rækkefølgen i menuen.
 
-Siden bruger temaet [Just the Docs](https://just-the-docs.github.io/just-the-docs/). Moduler i 3. niveau
-(fx `cloud/03-kubernetes/opgave-1/README.md`) skal have `parent:` og `grand_parent:` i front matter.
+Siden bruger temaet [jekyll-gitbook](https://sighingnow.github.io/jekyll-gitbook/). Menuen, forrige/næste-pilene og
+de danske tekster er tilpasset i `_includes/` og `_layouts/`; egne CSS-regler ligger i `assets/gitbook/custom-local.css`.
 
 ## Kør lokalt (valgfrit)
+
+Med Docker – kræver ikke Ruby:
+
+```bash
+docker compose up
+```
+
+Åbn <http://localhost:4000/undervisningsmateriale/>. Ændringer i filerne bygges automatisk (ændringer i
+`_config.yml` kræver en genstart); stop med `docker compose down`.
+
+Eller med Ruby installeret:
 
 ```bash
 gem install bundler
