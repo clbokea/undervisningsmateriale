@@ -20,18 +20,22 @@ cloud/
 
 1. Opret en ny mappe i faget, fx `cloud/03-kubernetes/`
 2. Læg en `README.md` i mappen. Første `# Overskrift` bliver sidens titel.
-3. Commit og push – siden bygges automatisk og modullisterne opdateres af sig selv.
+3. Commit og push – siden bygges automatisk og menuen opdateres af sig selv.
 
 **Tips**
-- Brug talpræfikser (`01-`, `02-`, …) – modullisterne sorteres efter mappenavn.
-- Undermapper (fx `cloud/03-kubernetes/opgave-1/README.md`) vises indrykket i modullisten.
+- Brug talpræfikser (`01-`, `02-`, …) – menuen sorteres efter titel.
 - Billeder kan ligge i samme mappe og linkes relativt: `![diagram](diagram.png)`
 - Links mellem filer skrives som på GitHub: `[næste](../02-kanban/README.md)` – de virker begge steder.
-- Valgfrit: tilføj front matter med `description:` for at styre teksten ud for modulet i listen.
+- Valgfrit: tilføj front matter med `nav_order:` for at styre rækkefølgen i menuen.
 
 ## Nyt fag
 
-Tilføj et fag under `courses:` i `_config.yml` (id, titel, beskrivelse, ikon og farve) og opret en mappe med samme navn.
+Opret en mappe med en `README.md`, hvis første `# Overskrift` er fagets navn. Tilføj derefter to blokke under
+`defaults:` i `_config.yml` (kopiér et af de eksisterende fag): én der giver fagets forside en `nav_order`,
+og én der sætter `parent` til fagets navn for alle sider i undermapperne.
+
+Siden bruger temaet [Just the Docs](https://just-the-docs.github.io/just-the-docs/). Moduler i 3. niveau
+(fx `cloud/03-kubernetes/opgave-1/README.md`) skal have `parent:` og `grand_parent:` i front matter.
 
 ## Kør lokalt (valgfrit)
 
